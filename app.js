@@ -1,45 +1,51 @@
-const numArr = [2, 32, 1234, 54, 323];
+const arr = ['Denis', 'Ivan', 'Maks', 'Olga', 'Sveta'];
 
-let value;
 
-value = Array.isArray(numArr);
-value = numArr[2];
-numArr[2] = 12;
-value = numArr.indexOf(32);
-
-value = numArr.push(100);
-value = numArr.pop();
-value = numArr.unshift(111);
-value = numArr.shift();
-value = numArr.slice(0, 2);
-value = numArr.splice(1, 2, 'One', 'Two', 'Three');
-value = numArr.reverse();
-value = numArr.concat(numArr);
-value = numArr.join(" ");
-value = "hello world".split(' ');
-
-let users = [{
-        id: 1,
-        name: 'Innokentij'
-    },
-    {
-        id: 2,
-        name: 'Sema'
-    },
-    {
-        id: 3,
-        name: 'Fedja'
-    },
-    {
-        id: 4,
-        name: 'Aljena'
+function mapArray(arr, fn) {
+    const res = [];
+    for (let i = 0; i < arr.length; i++) {
+        res.push(fn(arr[i]));
     }
-];
+    return res;
+}
 
-let someUsers = users.filter(item => item.id < 4);
-console.log(someUsers.length);
+function nameLenght(el) {
+    return el.length;
+}
 
-let lenghts = users.map(item => item.name.length);
-console.log(lenghts);
+function nameToUpperCase(el) {
+    return el.toUpperCase();
+}
 
-console.log(value, numArr);
+let result1 = mapArray(arr, nameLenght);
+let result2 = mapArray(arr, nameToUpperCase);
+
+// console.log(result1);
+// console.log(result2);
+
+function greeting(firstName) {
+    return function (lastName) {
+        return `Hello, ${firstName} ${lastName}`;
+    }
+}
+
+// const testGreetings = greeting('Denis');
+// const fullName = testGreetings('Pupkin');
+const fullName = greeting('Denis')('Pupkin');
+console.log(fullName);
+
+function question(job) {
+    const jobDictionary = {
+        developer: 'what is JS?',
+        teacher: 'which subject?'
+    };
+
+    return function (name) {
+        return `${name}, ${jobDictionary[job]}?`;
+    }
+}
+
+const developerQuestion = question('developer');
+console.log(developerQuestion('Denis'));
+const teacherQuestion = question('teacher');
+console.log(teacherQuestion('Denis'));
