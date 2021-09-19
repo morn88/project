@@ -1,19 +1,10 @@
-// function sayHello(firstName = "Default", lastName) {
-//     console.log(firstName, lastName);
-//     return `Hello ${firstName} ${lastName}`;
-// }
+function foo() {
+    console.log(arguments);
 
-// let res = sayHello("Denis", "Pupkin");
-// let res2 = sayHello("Anna", "Pupkina");
+    for (let i = 0; i < arguments.length; i++) {
+        console.log(arguments[i]);
+    }
+}
 
-// console.log(res, res2);
 
-const square = function (x) {
-    return x * x;
-};
-
-(function (msg) {
-    console.log(msg);
-})(`Hello world`);
-
-console.log(square(5));
+foo(11, 'some string', [1, 2, 3]);
