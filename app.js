@@ -1,51 +1,57 @@
-const arr = ['Denis', 'Ivan', 'Maks', 'Olga', 'Sveta'];
-
-
-function mapArray(arr, fn) {
-    const res = [];
-    for (let i = 0; i < arr.length; i++) {
-        res.push(fn(arr[i]));
-    }
-    return res;
+function getThis() {
+    console.log(this);
 }
 
-function nameLenght(el) {
-    return el.length;
+// getThis();
+
+function getPrice() {
+    return this;
 }
 
-function nameToUpperCase(el) {
-    return el.toUpperCase();
+function getName() {
+    return this;
 }
 
-let result1 = mapArray(arr, nameLenght);
-let result2 = mapArray(arr, nameToUpperCase);
+const prod1 = {
+    name: `Intel`,
+    price: 100,
+    getPrice,
+    getName: function () {
+        return this.name;
+    },
+};
 
-// console.log(result1);
-// console.log(result2);
+prod1.getPrice();
 
-function greeting(firstName) {
-    return function (lastName) {
-        return `Hello, ${firstName} ${lastName}`;
-    }
-}
+const prod2 = {
+    name: `AMD`,
+    price: 50,
+    getPrice,
+};
 
-// const testGreetings = greeting('Denis');
-// const fullName = testGreetings('Pupkin');
-const fullName = greeting('Denis')('Pupkin');
-console.log(fullName);
+console.log(prod1.getPrice());
+console.log(prod2.getPrice());
+console.log(prod1.getName());
 
-function question(job) {
-    const jobDictionary = {
-        developer: 'what is JS?',
-        teacher: 'which subject?'
-    };
+prod2.getName = prod1.getName;
+console.log(prod2.getName());
 
-    return function (name) {
-        return `${name}, ${jobDictionary[job]}?`;
-    }
-}
 
-const developerQuestion = question('developer');
-console.log(developerQuestion('Denis'));
-const teacherQuestion = question('teacher');
-console.log(teacherQuestion('Denis'));
+let str = 'Hello world';
+
+const reversStr = str.split('').reverse().join('');
+console.log(reversStr);
+
+const prod3 = {
+    name: 'ARM',
+    price: 200,
+    getPrice,
+    getName,
+};
+
+
+const getPriceBind = prod3.getPrice.bind(prod3);
+
+console.log(getPriceBind);
+
+setTimeout(getPriceBind, 1000);
